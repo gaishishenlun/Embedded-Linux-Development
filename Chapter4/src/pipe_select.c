@@ -80,33 +80,36 @@ int main(void) {
 				}
 				break;
 			default: {
-					for (i = 1; i < IN_FILES; i++) {
+					for (i = 0; i < IN_FILES; i++) {
+						if(FD_ISSET(fds[i], &tmp_inset)) {
 
-						memset(buf, 0, MAX_BUFFER_SIZE);
-						real_read = read(fds[i], buf, MAX_BUFFER_SIZE);
+							memset(buf, 0, MAX_BUFFER_SIZE);
+							real_read = read(fds[i], buf, MAX_BUFFER_SIZE);
 
-						if ( real_read < 0) {
-							if (errno != EAGAIN) {
-								printf("fds[%d] = %d errno!\n", i, fds[i]);
-								return 1;
-							}
-						}
-						else if (!real_read) {
-							close(fds[i]);
-							FD_CLR(fds[i], &inset);
-						}
-						else {
-							if (i == 0) {
-								if ((buf[0] == 'q') || (buf[0] == 'Q')) {
-								// 主程序终端控制
-									printf("Q退出\n");
+							if ( real_read < 0) {
+								if (errno != EAGAIN) {
+									printf("fds[%d] = %d errno!\n", i, fds[i]);
 									return 1;
 								}
 							}
+							else if (!real_read) {
+								// 到达文件末尾
+								close(fds[i]);
+								FD_CLR(fds[i], &inset);
+							}
 							else {
-							// 显示管道输入字符串
-								buf[real_read] = '\0';
-								printf("%s", buf);
+								if (i == 0) {
+									if ((buf[0] == 'q') || (buf[0] == 'Q')) {
+									// 主程序终端控制
+										return 1;
+									}
+									//continue;
+								}
+								else {
+								// 显示管道输入字符串
+									buf[real_read] = '\0';
+									printf("%s", buf);
+								}
 							}
 						}// end of if
 					}// end of for
