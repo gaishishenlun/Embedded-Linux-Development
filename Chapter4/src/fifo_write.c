@@ -7,7 +7,7 @@
 #include<stdlib.h>
 #include<limits.h>
 
-#define MYFIFO					"/tmp/myfifo"			// 有名管道文件名
+#define MYFIFO	"/tmp/myfifo"			// 有名管道文件名
 #define MAX_BUFFER_SIZE	PIPE_BUF	// 定义在limits.h
 
 
