@@ -7,8 +7,8 @@
 #include <stdio.h>
 
 #define BUFFER_SIZE			1024					// 缓冲大小
-#define SRC_FILE_NAME		"src_file"		// 源文件路径
-#define DEST_FILE_NAME	"dest_file"		// 目标文件路径
+#define SRC_FILE_NAME		"../res/src_file"		// 源文件路径
+#define DEST_FILE_NAME	"../res/dest_file"		// 目标文件路径
 #define OFFSET					10240					// 复制数据的大小
 
 

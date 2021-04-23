@@ -1,20 +1,22 @@
 /* shm_com.h */
-#ifndef _SHM_COM_H
-#define _SHM_COM_H
+#ifndef SHM_COM_H
+#define SHM_COM_H
 
 #include<unistd.h>
-#include<stdio.h>
 #include<stdlib.h>
+#include<stdio.h>
+#include<string.h>
+#include<sys/types.h>
 #include<sys/types.h>
 #include<sys/ipc.h>
 #include<sys/shm.h>
+#include<signal.h>
 
-#define DELAY_TIME 3	// 为了突出演示效果，等待几秒
+#define SHM_BUFFER_SZ 2048
 
-union semun {
-	int val;
-	struct semid_ds *buf;
-	unsigned short *array;
-}
+struct shm_buff {
+	int pid;
+	char buffer[SHM_BUFFER_SZ];
+};
 
 #endif
